@@ -1,65 +1,70 @@
 package models;
 
+import main.Main;
+import models.Account.Account;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
  private String username;
  private String password;
  private String firstName;
- private double balance;
- private double withdrawLimit;
- private boolean isActive;
+ private Account account; // Verweis auf die Account-Klasse
+ private String currency;
+ private final List<String> transactionHistory;
 
-
- public User(String username, String password, String firstName, double initialDeposit, double withdrawLimit) {
- this.username = username.toLowerCase();
- this.password = password;
- this.firstName = firstName;
- this.balance = initialDeposit;
- this.withdrawLimit = withdrawLimit;
- this.isActive = true;
+ public User(String username, String password, String firstName, Main.Account account, String currency) {
+     this.transactionHistory = new ArrayList<>();
  }
 
  public String getUsername() {
- return username;
+  return username;
  }
 
- public String getPassword() {
- return password;
+ public boolean checkPassword(String password) {
+  return this.password.equalsIgnoreCase(password.trim());
  }
 
  public String getFirstName() {
- return firstName;
+  return firstName;
  }
 
- public double getBalance() {
- return balance;
-}
-
- public double getWithdrawLimit() {
- return withdrawLimit;
-}
-
- public boolean isActive() {
- return isActive;
+ public Account getAccount() {
+  return account;
  }
 
- public void deactivate() {
- this.isActive = false;
+ public String getCurrency() {
+  return currency;
+ }
+
+ public void addTransaction(String transaction) {
+  transactionHistory.add(transaction);
+ }
+
+ public void showBalance() {
+  System.out.println("Your current balance is: $" + account.getBalance() + " (" + currency + ")");
  }
 
  public void deposit(double amount) {
- this.balance += amount;
+  account.deposit(amount);
+  transactionHistory.add("Deposited: $" + amount + " (" + currency + ")");
  }
 
- public boolean withdraw(double amount) {
- if (amount > this.withdrawLimit) {
- System.out.println("Exceeds withdraw limit.");
- return false;
+ public void withdraw(double amount) {
+  if (account.withdraw(amount)) {
+   transactionHistory.add("Withdrew: $" + amount + " (" + currency + ")");
+  }
  }
- if (amount > this.balance) {
- System.out.println("Insufficient funds.");
- return false;
- }
-this.balance -= amount;
-return true;
+
+ public void showTransactionHistory() {
+  if (transactionHistory.isEmpty()) {
+   System.out.println("No transactions available.");
+  } else {
+   System.out.println("\nTransaction History:");
+   for (String transaction : transactionHistory) {
+    System.out.println(transaction);
+   }
+  }
  }
 }
