@@ -1,18 +1,13 @@
 package main;
 
-import models.Account.GoldAccount;
-import models.Account.PlatinumAccount;
-import models.Account.SilverAccount;
 import models.User;
-import models.Account.Account;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
- private static final Map<String, User> users = new HashMap<>(); // Speichert alle registrierten Benutzer
- private static User loggedInUser = null; // Speichert den aktuell eingeloggten Benutzer
+ private static final Map<String, User> users = new HashMap<>();
+ private static User loggedInUser = null;
  private static final Scanner scanner = new Scanner(System.in);
 
  public static void main(String[] args) {
@@ -26,7 +21,7 @@ public class Main {
  System.out.print("Choose an option: ");
 
  int choice = scanner.nextInt();
- scanner.nextLine(); // Buffer leeren
+ scanner.nextLine();
 
  switch (choice) {
  case 1:

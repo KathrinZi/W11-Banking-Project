@@ -2,7 +2,6 @@ package models;
 
 import main.Main;
 import models.Account.Account;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,7 @@ public class User {
  private String username;
  private String password;
  private String firstName;
- private Account account; // Verweis auf die Account-Klasse
+ private Account account;
  private String currency;
  private final List<String> transactionHistory;
 
